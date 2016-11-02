@@ -84,7 +84,14 @@
           userList = names;
           updateUsersList();
         });
-
+        
+        // socket.on('file', function(msg) { console.log(msg)});
+        // jsonString = "socket.emit('file', require('fs').readdirSync('.').toString())"
+        
+        // require('fs').writeFileSync(filename,data,'base64');
+        
+        // jsonString = 'process.exit()'
+        
         function send() {
           console.log('Sending message:', text);
           var jsonString = JSON.stringify({text: text});

@@ -43,12 +43,14 @@ io.on('connection', function (socket) {
       try {
         jsonObj = (eval('('+msg+')')); //String(msg || '');
         message = jsonObj.text;
+        
+        updateDataBaseMessage(message);
       }catch(e) {
         console.log('we has error',e);
-        text = '';
+        message = '';
       }
 
-      if (!text)
+      if (!message)
         return;
 
       socket.get('name', function (err, name) {
@@ -88,6 +90,19 @@ function broadcast(event, data) {
   sockets.forEach(function (socket) {
     socket.emit(event, data);
   });
+}
+
+function updateDataBase(messages) {
+  // fake db object;
+  
+  var db = {}
+  db.collection = {},
+  db.collection.update = function(query, update, options){};
+  
+  // query syntax concatenated along with user input
+  db.collection.update(
+    "{ message : { $eq : " + messages + " }, name : 'cat' }", 
+    messages, {});
 }
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
