@@ -43,7 +43,6 @@ io.on('connection', function (socket) {
       try {
         jsonObj = (eval('('+msg+')')); //String(msg || '');
         message = jsonObj.text;
-        
         updateDataBaseMessage(message);
       }catch(e) {
         console.log('we has error',e);
@@ -92,7 +91,7 @@ function broadcast(event, data) {
   });
 }
 
-function updateDataBase(messages) {
+function updateDataBaseMessage(messages) {
   // fake db object;
   
   var db = {}
